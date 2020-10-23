@@ -1,4 +1,4 @@
-node {
+node('centos2'){
     def app
 
     stage('Clone repository') {
@@ -9,8 +9,12 @@ node {
 
     stage('Build image') {
         /* This builds the actual image */
-
         app = docker.build("nagarjun13/nodeapp")
+    }
+
+    stage('Run image') {
+        sh "docker run -d -i -p8000:8000 nagarjun13/nodeapp"
+        
     }
 
     stage('Test image') {
